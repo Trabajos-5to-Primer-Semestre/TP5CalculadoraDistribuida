@@ -1,6 +1,7 @@
 import numexpr
 import socket
 import _thread
+import threading
 
 PORT = 6666
 
@@ -29,7 +30,8 @@ def send_msg_utf(socket_connection, msg):
 
 def client_logic(socket_connection):
     with socket_connection:  # With the open connection
-        print(f"Connected by {addr}")
+        thread_id = threading.current_thread().ident
+        print(f"Thread ID {thread_id}: Connected by {addr}")
 
         while True:
             # Receive the socket message, specifying the max amount of data
@@ -38,7 +40,7 @@ def client_logic(socket_connection):
 
             print(data)
             if data == 'no':
-                print("Cerrando conexion...")
+                print(f"Thread ID {thread_id}: Cerrando conexion...")
                 break
             # Perform the calculations needed
             data = str(numexpr.evaluate(data.replace('^', '**'))).encode("UTF-8")
