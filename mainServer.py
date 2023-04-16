@@ -38,7 +38,7 @@ def client_logic(socket_connection):
             # The received data is then deserialized into a string
             data = receive_utf_msg(socket_connection)
 
-            print(data)
+            print(f"Thread ID {thread_id}: {data}")
             if data == 'no':
                 print(f"Thread ID {thread_id}: Cerrando conexion...")
                 break
